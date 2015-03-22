@@ -2,12 +2,17 @@
 # -*- coding: utf-8 -*-
 
 
+"""
+    Модуль запускающий приложение
+"""
+
+
 import sys
-import numpy as np
+# import numpy as np
 import argparse
-import cv2
+# import cv2
 import src.utils.scope as s
-from src.utils.log import info_log
+# from src.utils.log import info_log
 from src.utils.validators import args_validator
 
 
@@ -36,5 +41,5 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--point', help='point (-p x y)',              nargs='+', type=float)
     parser.add_argument('-s', '--size',  help='image size in mm (-i h w)',   nargs='+', type=float)
     _args = parser.parse_args()
-    if (_args.mode == 'console'):
+    if _args.mode == 'console':
         main_console(_args)

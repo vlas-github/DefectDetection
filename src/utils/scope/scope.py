@@ -1,6 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 # todo add exceptions
 
+
 import cv2
+from rectangle import Rectangle
+from point import Point
 
 
 class Scope():
@@ -56,54 +63,6 @@ class Scope():
 
     def get_scale(self):
         pass  # todo
-
-
-class Rectangle():
-    def __init__(self, left_top_point, right_bot_point):
-        self.lt = left_top_point
-        self.rb = right_bot_point
-
-    def set_left_top(self, point):
-        self.lt = point
-
-    def set_right_bot(self, point):
-        self.rb = point
-
-    def get_left_top(self):
-        return self.lt
-
-    def get_right_bot(self):
-        return self.rb
-
-    def to_tuple(self):
-        return self.lt.to_tuple(), self.rb.to_tuple()
-
-    def to_list(self):
-        return [self.lt.to_list(), self.rb.to_list()]
-
-
-class Point():
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def set_x(self, x):
-        self.x = x
-
-    def set_y(self, y):
-        self.y = y
-
-    def get_x(self):
-        return self.x
-
-    def get_y(self):
-        return self.y
-
-    def to_tuple(self):
-        return self.x, self.y
-
-    def to_list(self):
-        return [self.x, self.y]
 
 
 if __name__ == '__main__':
