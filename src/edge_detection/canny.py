@@ -7,7 +7,9 @@
 """
 
 
-from src.utils.scope.scope import Scope
+# todo доработать алгоритм
+
+
 import cv2
 import numpy as np
 
@@ -24,6 +26,7 @@ def start(scope):
 
 
 if __name__ == '__main__':
+    from src.utils.scope.scope import Scope
     from src.utils.scope.point import Point
     from src.utils.scope.rectangle import Rectangle
     _lt = Point(950, 750)
