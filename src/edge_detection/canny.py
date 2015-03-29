@@ -3,7 +3,7 @@
 
 
 """
-    Выделение контура с помощью Цепного кода Фримена
+    Выделение контура
 """
 
 
@@ -14,19 +14,13 @@ import numpy as np
 
 def start(scope):
     image = scope.work_image
-    blurred = cv2.GaussianBlur(image, (5, 5), 0)
+    noise = cv2.fastNlMeansDenoising(image, None, 9, 3, 9)
+    blurred = cv2.GaussianBlur(noise, (3, 3), 0)
     gray = cv2.cvtColor(blurred, cv2.COLOR_BGR2GRAY)
     canny = cv2.Canny(gray, 1, 1)
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    closed = cv2.morphologyEx(canny, cv2.MORPH_CLOSE, kernel)
-    for i in range(1, 10):
-        cv2.imshow("Image", canny)
-        cv2.waitKey(0)
-        cv2.imshow("Image", closed)
-        cv2.waitKey(0)
-        cv2.imshow("Image", image)
-        cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    kernel = np.ones((2, 2), np.float32) / 5
+    dst = cv2.filter2D(canny, -1, kernel)
+    scope.work_image = dst
 
 
 if __name__ == '__main__':
@@ -41,4 +35,9 @@ if __name__ == '__main__':
     _scope.select_area(_rect)
     _scope.select_point(_point)
     start(_scope)
+    for i in range(1, 4):
+        cv2.imshow("Image", _scope.work_image)
+        cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
 
