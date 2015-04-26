@@ -8,6 +8,7 @@
 import cv2
 from rectangle import Rectangle
 from point import Point
+from src.utils.config.config import full_path
 
 
 class Scope():
@@ -21,7 +22,7 @@ class Scope():
         self.size = ()
 
     def load_image_by_path(self, path):
-        self.base_image = cv2.imread(path)
+        self.base_image = cv2.imread(full_path(path))
 
     def select_area(self, rectangle):
         self.area = rectangle
@@ -71,7 +72,7 @@ if __name__ == '__main__':
     _point = Point(1000, 800)
     _rect = Rectangle(_lt, _rb)
     _scope = Scope()
-    _scope.load_image_by_path('../../image/Defective/12257157-2015-02-10-105717.png')
+    _scope.load_image_by_path('image/Defective/12257157-2015-02-10-105717.png')
     _scope.select_area(_rect)
     _scope.select_point(_point)
     _image = _scope.get_work_image()

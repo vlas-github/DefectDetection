@@ -11,9 +11,14 @@ import ConfigParser
 # TODO: -
 
 
-config_file = '../../../defaults.cfg'
+project_path = '/home/vlasov-id-131216/Dropbox/Универ/Диплом/project/DefectDetection/'
+config_file = project_path + 'defaults.cfg'
 config = ConfigParser.ConfigParser()
 config.readfp(open(config_file))
+
+
+def full_path(path):
+    return project_path + path
 
 
 def get_property(section, option, default_value=""):

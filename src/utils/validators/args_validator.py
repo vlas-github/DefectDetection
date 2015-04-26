@@ -7,11 +7,11 @@
 """
 
 
-# todo Пролумать нормальную валидацию
+# todo Продумать нормальную валидацию
 
 
 import os.path
-from src.utils.log.log import error
+from src.utils.log import log
 
 
 def args_validator(fn):
@@ -21,16 +21,16 @@ def args_validator(fn):
     :return: Функция обернутая в декоратор, который валидирует исходные аргументы
     """
     def wrapped(args):
-        if args.mode != 'console' or args.mode != 'gui':
-            error('unidentified mode')
+        if args.mode != 'console' and args.mode != 'gui':
+            log.error('unidentified mode')
         elif os.path.exists(args.image):
-            error('image not found')
+            log.error('image not found')
         elif len(args.area) != 4:
-            error('area format is incorrect')
-        elif len(args.pint) != 2:
-            error('point format is incorrect')
+            log.error('area format is incorrect')
+        elif len(args.point) != 2:
+            log.error('point format is incorrect')
         elif len(args.size) != 2:
-            error('size format is incorrect')
+            log.error('size format is incorrect')
         else:
             fn(args)
     return wrapped

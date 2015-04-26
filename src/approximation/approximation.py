@@ -80,7 +80,7 @@ if __name__ == '__main__':
     _point = Point(1000 - 950, 805 - 750)
     _rect = Rectangle(_lt, _rb)
     _scope = Scope()
-    _scope.load_image_by_path('../../image/12мм/fc2_save_2014-11-20-154727-0000.bmp')
+    _scope.load_image_by_path('image/12мм/fc2_save_2014-11-20-154727-0000.bmp')
     _scope.select_area(_rect)
     _scope.select_point(_point)
 
