@@ -8,7 +8,7 @@ import src.utils.config.config as config
     Модуль для логирования работы программы
 """
 
-# TODO: Проверить значения по умолчанию
+# TODO: -
 
 
 info_log_file = config.get_property('log', 'info_log_file', '../../../logs/info.log')
@@ -16,35 +16,52 @@ error_log_file = config.get_property('log', 'error_log_file', '../../../logs/err
 loging = bool(config.get_property('log', 'loging', 'true'))
 
 if loging:
-    info_log = logging.basicConfig(filename=info_log_file, level=logging.INFO,
-                                   format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-    error_log = logging.basicConfig(filename=error_log_file, level=logging.ERROR,
-                                    format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
+    formatter.datefmt = '%m/%d/%Y %I:%M:%S'
+
+    info_log = logging.getLogger('info_log')
+    handler_info_log = logging.FileHandler(info_log_file)
+    handler_info_log.setFormatter(formatter)
+    info_log.addHandler(handler_info_log)
+    info_log.setLevel(logging.INFO)
+
+    error_log = logging.getLogger('error_log')
+    handler_error_log = logging.FileHandler(error_log_file)
+    handler_error_log.setFormatter(formatter)
+    error_log.addHandler(handler_error_log)
+    error_log.setLevel(logging.ERROR)
 
 
-def info_log(message):
+def info(message):
     if loging:
         info_log.info(message)
     else:
         print message
 
 
-def debug_log(message):
+def debug(message):
     if loging:
         info_log.debug(message)
     else:
         print message
 
 
-def warn_log(message):
+def warning(message):
     if loging:
         info_log.warning(message)
     else:
         print message
 
 
-def err_log(message):
+def error(message):
     if loging:
         error_log.error(message)
     else:
         print message
+
+
+if __name__ == '__main__':
+    info('info test')
+    debug('debug test')
+    warning('warning test')
+    error('error test')

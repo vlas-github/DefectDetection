@@ -4,10 +4,11 @@
 
 import ConfigParser
 
-
 """
     Обертка для конфигов
 """
+
+# TODO: -
 
 
 config_file = '../../../defaults.cfg'
@@ -26,9 +27,23 @@ def set_property(section, option, value):
     try:
         config.set(section, option, value)
         save_config()
+    except ConfigParser.NoSectionError:
+        config.add_section(section)
+        set_property(section, option, value)
     except Exception:
         pass
 
 
 def save_config():
-    config.write(open(config_file, 'wb'))
+    try:
+        config.write(open(config_file, 'wb'))
+    except Exception:
+        pass
+
+
+if __name__ == '__main__':
+    print get_property('log', 'info_log_file', 'test')
+    print get_property('test', 'test-test-test', 'test')
+    set_property('test', 'test-test-test', 'test-test-test')
+    print get_property('test', 'test-test-test', 'test')
+    save_config()
