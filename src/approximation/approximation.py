@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
 """
     По обработанному изображению определяетнаправление линии шва
 """
+
+# TODO: Сделать аппроксимацию
 
 
 import cv2
 import numpy as np
 import math
+import sympy
 
 
 def get_perpendicular(scope):
@@ -23,38 +25,49 @@ def get_perpendicular(scope):
     mask = np.zeros((h + 2, w + 2), np.uint8)
     cv2.floodFill(closed, mask, point.to_tuple(), (255, 0, 255))
 
-    line = get_line_in_circle(closed, point, 20)
+    for x in xrange(0, w):
+        for y in xrange(0, h):
+            if closed[y][x] != 255:
+                closed[y][x] = 0
 
+    points = get_points_on_circle(closed, point, 20)
+    points += get_points_on_circle(closed, point, 25)
+    points += get_points_on_circle(closed, point, 30)
+    line = interpolate(points)
     return equation_of_perpendicular(line, point.to_tuple())
 
 
-def get_line_in_circle(img, point, radius):
-    fault = radius / 10
-    point1 = (-1, -1)
-    point2 = (-1, -1)
-    for f in range(0, 360):
-        x = int(math.sin(f) * radius + point.get_x())
-        y = int(math.cos(f) * radius + point.get_y())
-        if img[y][x] == 255:
-            if point1[0] == -1 and point1[1] == -1:
-                point1 = (x, y)
-            elif abs(point1[0] - x) < fault and abs(point1[1] - y) < fault:
-                point1 = (point1[0] + x) / 2, (point1[1] + y) / 2
-            elif point2[0] == -1 and point2[1] == -1:
-                point2 = (x, y)
-            else:
-                point2 = (point2[0] + x) / 2, (point2[1] + y) / 2
-    return point1, point2
+def get_points_on_circle(img, center, radius):
+    points = []
+    old_point_color = 0
+
+    for degrees in range(0, 360):
+        radians = degrees_to_radians(degrees)
+        x = int(math.sin(radians) * radius + center.get_x())
+        y = int(math.cos(radians) * radius + center.get_y())
+        if old_point_color != img[y][x]:
+            if old_point_color == 255:
+                points.append(((old_point[0] + x) / 2, (old_point[1] + y) / 2))
+            old_point_color = img[y][x]
+            old_point = (x, y)
+
+    return points
 
 
 def equation_of_perpendicular(line, point):
-    ((x1, y1), (x2, y2)) = line
-    (x, y) = point
-    vector1 = - (y1 - y),  x1 - x
-    vector2 = - (y2 - y), x2 - x
-    ((x1, y1), (x2, y2)) = (vector1[0] + x, vector1[1] + y), (vector2[0] + x, vector2[1] + y)
-    print ((x1, y1), (x2, y2))
-    return lambda arg: (y2 - y1) * (arg - x1) / (x2 - x1) + y1
+    x = sympy.symbols('x')
+    diff = sympy.diff(line, x)
+    y_0 = line.evalf(subs={x: point[0]})
+    return lambda arg: -1 / diff.evalf(subs={x: point[0]}) * (arg - point[0]) + y_0
+
+
+def degrees_to_radians(degrees):
+    return degrees * math.pi / 180.0
+
+
+def interpolate(points):
+    x = sympy.symbols('x')
+    return sympy.interpolate(points, x)
 
 
 if __name__ == '__main__':
