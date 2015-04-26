@@ -11,9 +11,7 @@
 
 
 import os.path
-from src.utils.log.log import err_log
-from src.utils.log.log import info_log
-from src.utils.log.log import warn_log
+from src.utils.log.log import error
 
 
 def args_validator(fn):
@@ -24,15 +22,15 @@ def args_validator(fn):
     """
     def wrapped(args):
         if args.mode != 'console' or args.mode != 'gui':
-            err_log('unidentified mode')
+            error('unidentified mode')
         elif os.path.exists(args.image):
-            err_log('image not found')
+            error('image not found')
         elif len(args.area) != 4:
-            err_log('area format is incorrect')
+            error('area format is incorrect')
         elif len(args.pint) != 2:
-            err_log('point format is incorrect')
+            error('point format is incorrect')
         elif len(args.size) != 2:
-            err_log('size format is incorrect')
+            error('size format is incorrect')
         else:
             fn(args)
     return wrapped
