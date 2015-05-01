@@ -13,14 +13,14 @@ import numpy as np
 
 
 def start(scope):
-    image = scope.work_image
+    image = scope.get_work_image()
     noise = cv2.fastNlMeansDenoising(image, None, 9, 3, 9)
     blurred = cv2.GaussianBlur(noise, (3, 3), 0)
     gray = cv2.cvtColor(blurred, cv2.COLOR_BGR2GRAY)
     canny = cv2.Canny(gray, 1, 1)
     kernel = np.ones((2, 2), np.float32) / 5
     dst = cv2.filter2D(canny, -1, kernel)
-    scope.work_image = dst
+    scope.set_work_image(dst)
 
 
 if __name__ == '__main__':
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     _scope.select_point(_point)
     start(_scope)
     for i in range(1, 4):
-        cv2.imshow("Image", _scope.work_image)
+        cv2.imshow("Image", _scope.get_work_image())
         cv2.waitKey(0)
     cv2.destroyAllWindows()
 

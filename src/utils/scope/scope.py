@@ -13,57 +13,71 @@ from src.utils.config.config import full_path
 
 class Scope():
     def __init__(self):
-        self.base_image = ()
-        self.work_image = ()
-        self.area = ()
-        self.point = ()
-        self.area_color = (255, 0, 0)
-        self.point_color = (0, 255, 0)
-        self.size = ()
+        self._base_image = ()
+        self._work_image = ()
+        self._area = ()
+        self._point = ()
+        self._area_color = (255, 0, 0)
+        self._point_color = (0, 255, 0)
+        self._size = ()
+        self._allowed_width = 2
+        self._scale = 2
 
     def load_image_by_path(self, path):
-        self.base_image = cv2.imread(full_path(path))
+        self._base_image = cv2.imread(full_path(path))
 
     def select_area(self, rectangle):
-        self.area = rectangle
-        (x1, y1), (x2, y2) = self.area.to_tuple()
-        self.work_image = self.base_image[y1:y2, x1:x2]
+        self._area = rectangle
+        (x1, y1), (x2, y2) = self._area.to_tuple()
+        self._work_image = self._base_image[y1:y2, x1:x2]
+
+    def set_work_image(self, work_image):
+        self._work_image = work_image
 
     def select_point(self, point):
-        self.point = point
+        self._point = point
 
     def set_area_color(self, r, g, b):
-        self.area_color = (r, g, b)
+        self._area_color = (r, g, b)
 
     def set_point_color(self, r, g, b):
-        self.point_color = (r, g, b)
+        self._point_color = (r, g, b)
 
     def set_size(self, x, y):
-        self.size = (x, y)
+        self._size = (x, y)
+
+    def set_scale(self, scale):
+        self._scale = scale
+
+    def set_allowed_width(self, allowed_width):
+        self._allowed_width = allowed_width
 
     def get_area_color(self):
-        return self.area_color
+        return self._area_color
 
     def get_point_color(self):
-        return self.point_color
+        return self._point_color
 
     def get_image(self):
-        return self.base_image
+        return self._base_image
 
     def get_work_image(self):
-        return self.work_image
+        return self._work_image
 
     def get_area(self):
-        return self.area
+        return self._area
 
     def get_point(self):
-        return self.point
+        return self._point
 
     def get_size(self):
-        return self.size
+        return self._size
 
     def get_scale(self):
-        pass  # todo
+        return self._scale
+
+    def get_allowed_width(self):
+        return self._allowed_width
 
 
 if __name__ == '__main__':

@@ -6,7 +6,3 @@
 """
 
 # TODO: -
-
-
-def check(scope, perpendicular):
-    pass

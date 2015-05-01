@@ -11,10 +11,10 @@
 import sys
 import argparse
 import src.utils.scope.scope as s
-import src.approximation.approximation as approximation
+import src.preparation.interpolate as approximation
 import src.edge_detection.canny as canny
-import src.defect_detection.check_position as check_position
-import src.defect_detection.check_width as check_width
+import src.defect_detection.check_position_by_perpendicular as check_position
+import src.defect_detection.check_width_by_perpendicular as check_width
 import src.defect_detection.analyze_results as analyze_results
 from src.utils.validators.args_validator import args_validator
 

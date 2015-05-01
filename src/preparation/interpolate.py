@@ -10,13 +10,13 @@
 
 import cv2
 import numpy as np
-import math
+import functions
 import sympy
 
 
 def get_perpendicular(scope):
-    image = scope.work_image
-    point = scope.point
+    image = scope.get_work_image()
+    point = scope.get_point()
 
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
     closed = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
@@ -43,8 +43,8 @@ def get_points_on_circle(img, center, radius):
 
     for degrees in range(0, 360):
         radians = degrees_to_radians(degrees)
-        x = int(math.sin(radians) * radius + center.get_x())
-        y = int(math.cos(radians) * radius + center.get_y())
+        x = int(functions.sin(radians) * radius + center.get_x())
+        y = int(functions.cos(radians) * radius + center.get_y())
         if old_point_color != img[y][x]:
             if old_point_color == 255:
                 points.append(((old_point[0] + x) / 2, (old_point[1] + y) / 2))
@@ -62,7 +62,7 @@ def equation_of_perpendicular(line, point):
 
 
 def degrees_to_radians(degrees):
-    return degrees * math.pi / 180.0
+    return degrees * functions.pi / 180.0
 
 
 def interpolate(points):
@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     start(_scope)
     foo = get_perpendicular(_scope)
-    _image = _scope.work_image
+    _image = _scope.get_work_image()
 
     for i in range(-100, 100):
         _x = _point.get_x() + i / 100.0
