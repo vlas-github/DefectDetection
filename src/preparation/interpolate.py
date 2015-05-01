@@ -10,7 +10,7 @@
 
 import cv2
 import numpy as np
-import functions
+import math
 import sympy
 
 
@@ -43,8 +43,8 @@ def get_points_on_circle(img, center, radius):
 
     for degrees in range(0, 360):
         radians = degrees_to_radians(degrees)
-        x = int(functions.sin(radians) * radius + center.get_x())
-        y = int(functions.cos(radians) * radius + center.get_y())
+        x = int(math.sin(radians) * radius + center.get_x())
+        y = int(math.cos(radians) * radius + center.get_y())
         if old_point_color != img[y][x]:
             if old_point_color == 255:
                 points.append(((old_point[0] + x) / 2, (old_point[1] + y) / 2))

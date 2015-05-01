@@ -7,23 +7,23 @@
 
 class Point():
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
 
     def set_x(self, x):
-        self.x = x
+        self._x = x
 
     def set_y(self, y):
-        self.y = y
+        self._y = y
 
     def get_x(self):
-        return self.x
+        return self._x
 
     def get_y(self):
-        return self.y
+        return self._y
 
     def to_tuple(self):
-        return self.x, self.y
+        return self._x, self._y
 
     def to_list(self):
-        return [self.x, self.y]
+        return [self._x, self._y]
