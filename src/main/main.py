@@ -72,7 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('-a', '--area',  help='work area (-a x1 y1 x2 y2)',  nargs='+', type=int)
     parser.add_argument('-p', '--point', help='point (-p x y)',              nargs='+', type=int)
     parser.add_argument('-s', '--size',  help='image size in mm (-i h w)',   nargs='+', type=float)
-    parser.add_argument('-t', '--type',  help='1 - perpendicular; 2 - area; 3 - both',  type=int)
+    parser.add_argument('-t', '--type',  help='1 - perpendicular; 2 - area; 0 - both',  type=int)
     _args = parser.parse_args()
     if _args.mode == 'console':
         main_console(_args)
