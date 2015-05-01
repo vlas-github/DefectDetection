@@ -6,11 +6,8 @@
 """
 
 # TODO: Убрать магические числа
-# TODO: Убрать блок, отвечающий за выделение шва
 
 
-import cv2
-import numpy as np
 import src.utils.other.functions as f
 
 
@@ -19,13 +16,6 @@ def get_area(scope):
     work_image = scope.get_work_image()
     scale = scope.get_scale()
     width = scope.get_allowed_width()
-
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    closed = cv2.morphologyEx(work_image, cv2.MORPH_CLOSE, kernel)
-
-    h, w = closed.shape[:2]
-    mask = np.zeros((h + 2, w + 2), np.uint8)
-    cv2.floodFill(closed, mask, point.to_tuple(), (255, 0, 255))
 
     radius = scale * width * 2.5
     diameter = 2 * radius
@@ -37,7 +27,7 @@ def get_area(scope):
     for x in xrange(0, int(diameter)):
         for y in xrange(0, int(diameter)):
             if in_circle((x - radius, y - radius)):
-                area[x][y] = closed[int(y + point.get_y() - radius)][int(x + point.get_x() - radius)]
+                area[x][y] = work_image[int(y + point.get_y() - radius)][int(x + point.get_x() - radius)]
 
     return area
 

@@ -6,7 +6,6 @@
 """
 
 # TODO: Доработать алгоритм
-# TODO: Перенести сюда алгоритм выделения контура
 
 
 import cv2
@@ -15,13 +14,27 @@ import numpy as np
 
 def start(scope):
     image = scope.get_work_image()
+    point = scope.get_point()
     noise = cv2.fastNlMeansDenoising(image, None, 9, 3, 9)
     blurred = cv2.GaussianBlur(noise, (3, 3), 0)
     gray = cv2.cvtColor(blurred, cv2.COLOR_BGR2GRAY)
     canny = cv2.Canny(gray, 1, 1)
     kernel = np.ones((2, 2), np.float32) / 5
     dst = cv2.filter2D(canny, -1, kernel)
-    scope.set_work_image(dst)
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    closed = cv2.morphologyEx(dst, cv2.MORPH_CLOSE, kernel)
+
+    h, w = closed.shape[:2]
+    mask = np.zeros((h + 2, w + 2), np.uint8)
+    cv2.floodFill(closed, mask, point.to_tuple(), (255, 0, 255))
+
+    for x in xrange(0, w):
+        for y in xrange(0, h):
+            if closed[y][x] != 255:
+                closed[y][x] = 0
+
+    scope.set_work_image(closed)
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-# todo add exceptions
+# TODO: add exceptions
 
 
 import cv2

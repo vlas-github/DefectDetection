@@ -8,8 +8,8 @@
 """
 
 
-# todo сделать валидацию входных данных
-# todo сделать методы from_tuple и from_list
+# TODO: сделать валидацию входных данных
+# TODO: сделать методы from_tuple и from_list
 
 
 class Rectangle():

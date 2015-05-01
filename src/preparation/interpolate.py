@@ -5,39 +5,44 @@
     По обработанному изображению определяетнаправление линии шва
 """
 
-# TODO:  Убрать блок, отвечающий за выделение шва
+# TODO: -
 
 
 import cv2
-import numpy as np
 import math
 import sympy
+from src.utils.other.functions import degrees_to_radians
 
 
 def get_perpendicular(scope):
-    image = scope.get_work_image()
+    """
+    Определение перпендикуляра к шву
+    :param scope: Рабочее изображение и точка сканирования
+    :return: Перпендикуляр к шву в точке сканирования
+    """
+    work_image = scope.get_work_image()
     point = scope.get_point()
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    closed = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
+    # Получаем список точек на контуре
+    points = get_points_on_circle(work_image, point, 20)
+    points += get_points_on_circle(work_image, point, 25)
+    points += get_points_on_circle(work_image, point, 30)
 
-    h, w = closed.shape[:2]
-    mask = np.zeros((h + 2, w + 2), np.uint8)
-    cv2.floodFill(closed, mask, point.to_tuple(), (255, 0, 255))
-
-    for x in xrange(0, w):
-        for y in xrange(0, h):
-            if closed[y][x] != 255:
-                closed[y][x] = 0
-
-    points = get_points_on_circle(closed, point, 20)
-    points += get_points_on_circle(closed, point, 25)
-    points += get_points_on_circle(closed, point, 30)
+    # Проводи процедуру интерполяции
     line = interpolate(points)
+
+    # Возвращаем перпендикуляр к шву
     return equation_of_perpendicular(line, point.to_tuple())
 
 
 def get_points_on_circle(img, center, radius):
+    """
+    Определяет точки пересечения шва и окружности
+    :param img: Рабочее изображение шва
+    :param center: Точка для анализа
+    :param radius: Радиус окружности
+    :return: Две точки принадлежащие и окружности и шву
+    """
     points = []
     old_point_color = 0
 
@@ -55,17 +60,24 @@ def get_points_on_circle(img, center, radius):
 
 
 def equation_of_perpendicular(line, point):
+    """
+    Определяет перпендикуляр к линии в точке по формуле (x) -> f(x0) - 1/f'(x0) * (x - x0)
+    :param line: Исходное уравнение линии
+    :param point: Точка в которой нужно построить перпендикуляр
+    :return: Уравнение перпендикуляра
+    """
     x = sympy.symbols('x')
     diff = sympy.diff(line, x)
     y_0 = line.evalf(subs={x: point[0]})
     return lambda arg: -1 / diff.evalf(subs={x: point[0]}) * (arg - point[0]) + y_0
 
 
-def degrees_to_radians(degrees):
-    return degrees * math.pi / 180.0
-
-
 def interpolate(points):
+    """
+    Интерполяция функции с помощью библиотеки sympy
+    :param points: Точки на линии
+    :return: Уравнение линии проходящей через заданные точки
+    """
     x = sympy.symbols('x')
     return sympy.interpolate(points, x)
 

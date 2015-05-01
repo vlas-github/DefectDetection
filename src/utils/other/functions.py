@@ -18,3 +18,7 @@ def length((x1, y1), (x2, y2)):
 def in_circle(radius, point):
     x, y = point
     return m.sqrt(x * x + y * y) <= radius
+
+
+def degrees_to_radians(degrees):
+    return degrees * m.pi / 180.0
