@@ -5,7 +5,7 @@
     По обработанному изображению определяетнаправление линии шва
 """
 
-# TODO: -
+# TODO:  Убрать блок, отвечающий за выделение шва
 
 
 import cv2
@@ -62,7 +62,7 @@ def equation_of_perpendicular(line, point):
 
 
 def degrees_to_radians(degrees):
-    return degrees * functions.pi / 180.0
+    return degrees * math.pi / 180.0
 
 
 def interpolate(points):
@@ -71,6 +71,9 @@ def interpolate(points):
 
 
 if __name__ == '__main__':
+    """
+        Тесты и пример работы модуля
+    """
     from src.utils.scope.scope import Scope
     from src.utils.scope.point import Point
     from src.utils.scope.rectangle import Rectangle

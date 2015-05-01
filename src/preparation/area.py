@@ -6,6 +6,7 @@
 """
 
 # TODO: Убрать магические числа
+# TODO: Убрать блок, отвечающий за выделение шва
 
 
 import cv2
@@ -42,6 +43,9 @@ def get_area(scope):
 
 
 if __name__ == '__main__':
+    """
+        Тесты и пример работы модуля
+    """
     from src.utils.scope.scope import Scope
     from src.utils.scope.point import Point
     from src.utils.scope.rectangle import Rectangle

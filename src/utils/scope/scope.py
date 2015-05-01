@@ -81,6 +81,9 @@ class Scope():
 
 
 if __name__ == '__main__':
+    """
+        Тесты и пример работы модуля
+    """
     _lt = Point(950, 600)
     _rb = Point(1200, 900)
     _point = Point(1000, 800)

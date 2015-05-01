@@ -47,6 +47,9 @@ def save_config():
 
 
 if __name__ == '__main__':
+    """
+        Тесты и пример работы модуля
+    """
     print get_property('log', 'info_log_file', 'test')
     print get_property('test', 'test-test-test', 'test')
     set_property('test', 'test-test-test', 'test-test-test')

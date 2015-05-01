@@ -8,7 +8,7 @@ import src.utils.config.config as config
     Модуль для логирования работы программы
 """
 
-# TODO: -
+# TODO: Подгружать пути к файлам из конфига
 
 
 info_log_file = config.get_property('log', 'info_log_file', '../../../logs/info.log')
@@ -61,6 +61,9 @@ def error(message):
 
 
 if __name__ == '__main__':
+    """
+        Тесты и пример работы модуля
+    """
     info('info test')
     debug('debug test')
     warning('warning test')
