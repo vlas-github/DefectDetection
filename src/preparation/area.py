@@ -22,7 +22,7 @@ def get_area(scope):
 
     in_circle = lambda p: f.in_circle(radius, p)
 
-    area = [[0 for _ in range(0, int(diameter))] for _ in range(0, int(diameter))]
+    area = [[-1 for _ in range(0, int(diameter))] for _ in range(0, int(diameter))]
 
     for x in xrange(0, int(diameter)):
         for y in xrange(0, int(diameter)):
