@@ -17,7 +17,7 @@ def get_area(scope):
     scale = scope.get_scale()
     width = scope.get_allowed_width()
 
-    radius = scale * width * 2.5
+    radius = scale * width * 1.5
     diameter = 2 * radius
 
     in_circle = lambda p: f.in_circle(radius, p)
