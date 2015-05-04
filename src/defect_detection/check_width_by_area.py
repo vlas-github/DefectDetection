@@ -5,7 +5,7 @@
     Проверка ширины шва
 """
 
-# TODO: - Прописать нормлаьное определение ширины (по формуле)
+# TODO: - Убрать магические числа)
 
 
 def check(scope, area):
@@ -24,7 +24,7 @@ def check(scope, area):
                 else:
                     other_pixel += 1
 
-    if other_pixel == 0:
+    if other_pixel >= (white_pixel + other_pixel) / 1.5:
         return False
 
     white_top = white_bottom = white_left = white_right = False
