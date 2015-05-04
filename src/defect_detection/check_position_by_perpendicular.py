@@ -55,11 +55,11 @@ def generate_response_code(distance, direction):
 
 
 def get_direction(vector):
-    m = [{0.000000, result_codes.R}, {22.500000, result_codes.TRR}, {45.000000, result_codes.TR},
-         {67.500000, result_codes.TTR}, {90.000000, result_codes.T}, {112.500000, result_codes.TTL},
-         {135.000000, result_codes.TL}, {157.500000, result_codes.TLL}, {180.000000, result_codes.L},
-         {202.500000, result_codes.BLL}, {225.000000, result_codes.BL}, {247.500000, result_codes.BBL},
-         {270.000000, result_codes.B}, {292.500000, result_codes.BBR}, {315.000000, result_codes.BR},
+    m = [{0.000000,   result_codes.R},    {22.500000,  result_codes.TRR},  {45.000000,  result_codes.TR},
+         {67.500000,  result_codes.TTR},  {90.000000,  result_codes.T},    {112.500000, result_codes.TTL},
+         {135.000000, result_codes.TL},   {157.500000, result_codes.TLL},  {180.000000, result_codes.L},
+         {202.500000, result_codes.BLL},  {225.000000, result_codes.BL},   {247.500000, result_codes.BBL},
+         {270.000000, result_codes.B},    {292.500000, result_codes.BBR},  {315.000000, result_codes.BR},
          {337.500000, result_codes.BRR}]
     direction = math.arctan(vector[1] / vector[2])
     return filter(lambda d: direction - 11.15 <= d <= direction + 11.15, m)
