@@ -22,3 +22,9 @@ def in_circle(radius, point):
 
 def degrees_to_radians(degrees):
     return degrees * m.pi / 180.0
+
+
+def vector_value_and_direction_coordinates(value, direction):
+    a = m.sqrt(value ** 2 / (1 + m.tan(direction) ** 2))
+    b = m.sqrt(value ** 2 - a ** 2)
+    return a, b
