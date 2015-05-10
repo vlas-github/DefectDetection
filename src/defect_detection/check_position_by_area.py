@@ -5,7 +5,7 @@
     Проверка координат точки
 """
 
-# TODO: -
+# TODO: Написать тесты
 
 
 from src.utils.other.functions import degrees_to_radians
