@@ -5,10 +5,10 @@
     Проверка координат точки
 """
 
-# TODO: Написать тесты
+# TODO: - Сделать нормализацию вектора
+# TODO: - Проверить координаты х и у
 
 
-from src.utils.other.functions import degrees_to_radians
 from src.utils.other.functions import vector_value_and_direction_coordinates
 
 
@@ -25,17 +25,43 @@ def check(scope, area):
         for y in xrange(0, area_width):
             if area[x][y] != -1 and area[x][y] != 255:
                 if x < height_mid and y < width_mid:
-                    tl += 0
+                    tl += 1
                 elif x > height_mid and y < width_mid:
-                    tr += 0
+                    tr += 1
                 elif x > height_mid and y > width_mid:
-                    br += 0
+                    br += 1
                 else:
-                    bl += 0
+                    bl += 1
 
-    v1 = vector_value_and_direction_coordinates(tl, degrees_to_radians(45))
-    v2 = vector_value_and_direction_coordinates(tr, degrees_to_radians(135))
-    v3 = vector_value_and_direction_coordinates(bl, degrees_to_radians(225))
-    v4 = vector_value_and_direction_coordinates(br, degrees_to_radians(315))
+    v1 = vector_value_and_direction_coordinates(tl, 45)
+    v2 = vector_value_and_direction_coordinates(tr, 135)
+    v3 = vector_value_and_direction_coordinates(bl, -135)
+    v4 = vector_value_and_direction_coordinates(br, -45)
 
-    return reduce(lambda (res_x, res_y), (x, y): (res_x + x, res_y + y), [v1, v2, v3, v4], (0, 0))
+    return reduce(lambda (res_x, res_y), (_x, _y): (res_x + _x, res_y + _y), [v1, v2, v3, v4], (0, 0))
+
+
+if __name__ == '__main__':
+    """
+        Тесты и пример работы модуля
+    """
+    from src.utils.scope.scope import Scope
+    from src.utils.scope.point import Point
+    from src.utils.scope.rectangle import Rectangle
+
+    _lt = Point(950, 750)
+    _rb = Point(1200, 870)
+    _point = Point(1000 - 950, 805 - 750)
+    _rect = Rectangle(_lt, _rb)
+    _scope = Scope()
+    _scope.load_image_by_path('image/12мм/fc2_save_2014-11-20-154727-0000.bmp')
+    _scope.select_area(_rect)
+    _scope.select_point(_point)
+
+    from src.edge_detection.canny import start
+    from src.preparation.area import get_area
+    start(_scope)
+    _area = get_area(_scope)
+    _result = check(_scope, _area)
+
+    print _result
