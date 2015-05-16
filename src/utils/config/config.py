@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-
-import ConfigParser
-import argparse
-
 """
     Обертка для конфигов
 """
 
 # TODO: Нормальные пути
+
+
+import ConfigParser
+import argparse
 
 
 project_path = '/home/vlasov-id-131216/Dropbox/Универ/Диплом/project/DefectDetection/'

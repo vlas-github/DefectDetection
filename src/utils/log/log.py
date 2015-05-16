@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import logging
-import src.utils.config.config as config
-
 """
     Модуль для логирования работы программы
 """
@@ -11,6 +8,7 @@ import src.utils.config.config as config
 # TODO: -
 
 
+import logging
 from src.utils.config.config import full_path
 from src.utils.config.config import get_property
 

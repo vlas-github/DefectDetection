@@ -5,7 +5,6 @@
     Модуль запускающий приложение
 """
 
-# TODO: Подгружать пути из конфигов
 # TODO: Сделать выбор способа анализа шва (оба)
 
 
@@ -20,11 +19,12 @@ import src.defect_detection.check_width_by_perpendicular as check_width_by_area
 import src.defect_detection.analyze_results as analyze_results
 from src.utils.validators.args_validator import args_validator
 from src.utils.config.config import load_config
+from src.utils.config.config import full_path
 from src.preparation import interpolate
 from src.preparation import area
 
 # Добавление модулей приложения в sys.path
-sys.path.append(u'/home/vlasov-id-131216/Dropbox/Универ/Диплом/project/DefectDetection/')
+sys.path.append(full_path(''))
 
 
 @load_config
