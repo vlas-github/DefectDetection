@@ -19,9 +19,7 @@ def args_validator(fn):
     :return: Функция обернутая в декоратор, который валидирует исходные аргументы
     """
     def wrapped(args):
-        if args.mode != 'console' and args.mode != 'gui':
-            log.error('unidentified mode')
-        elif os.path.exists(args.image):
+        if os.path.exists(args.image):
             log.error('image not found')
         elif len(args.area) != 4:
             log.error('area format is incorrect')
@@ -29,6 +27,8 @@ def args_validator(fn):
             log.error('point format is incorrect')
         elif len(args.size) != 2:
             log.error('size format is incorrect')
+        elif args.type != 0 and args.type != 1 and args.type != 2:
+            log.error('invalid type')
         else:
             fn(args)
     return wrapped

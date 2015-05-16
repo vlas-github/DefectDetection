@@ -19,6 +19,7 @@ import src.defect_detection.check_position_by_perpendicular as check_position_by
 import src.defect_detection.check_width_by_perpendicular as check_width_by_area
 import src.defect_detection.analyze_results as analyze_results
 from src.utils.validators.args_validator import args_validator
+from src.utils.config.config import load_config
 from src.preparation import interpolate
 from src.preparation import area
 
@@ -26,6 +27,7 @@ from src.preparation import area
 sys.path.append(u'/home/vlasov-id-131216/Dropbox/Универ/Диплом/project/DefectDetection/')
 
 
+@load_config
 @args_validator
 def main_console(args):
     """
@@ -59,6 +61,7 @@ def main_console(args):
         a = area.get_area(scope)
         check_position_result = check_position_by_area.check(scope, a)
         check_width_result = check_width_by_area.check(scope, a)
+    elif args.type == 0:
         pass
 
     # Анализ полученных результатов
@@ -67,12 +70,10 @@ def main_console(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', '--mode',  help='way to run (gui or console)', default='console')
     parser.add_argument('-i', '--image', help='path to image')
     parser.add_argument('-a', '--area',  help='work area (-a x1 y1 x2 y2)',  nargs='+', type=int)
     parser.add_argument('-p', '--point', help='point (-p x y)',              nargs='+', type=int)
     parser.add_argument('-s', '--size',  help='image size in mm (-i h w)',   nargs='+', type=float)
     parser.add_argument('-t', '--type',  help='1 - perpendicular; 2 - area; 0 - both',  type=int)
     _args = parser.parse_args()
-    if _args.mode == 'console':
-        main_console(_args)
+    main_console(_args)
