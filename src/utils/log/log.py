@@ -8,14 +8,18 @@ import src.utils.config.config as config
     Модуль для логирования работы программы
 """
 
-# TODO: Подгружать пути к файлам из конфига
+# TODO: -
 
 
-info_log_file = config.get_property('log', 'info_log_file', '../../../logs/info.log')
-error_log_file = config.get_property('log', 'error_log_file', '../../../logs/error.log')
-loging = bool(config.get_property('log', 'loging', 'true'))
+from src.utils.config.config import full_path
+from src.utils.config.config import get_property
 
-if loging:
+
+info_log_file = full_path(get_property('log', 'info_log_file', 'logs/info.log'))
+error_log_file = full_path(get_property('log', 'error_log_file', 'logs/error.log'))
+log = bool(get_property('log', 'log', 'true'))
+
+if log:
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(message)s')
     formatter.datefmt = '%m/%d/%Y %I:%M:%S'
 
@@ -33,28 +37,28 @@ if loging:
 
 
 def info(message):
-    if loging:
+    if log:
         info_log.info(message)
     else:
         print message
 
 
 def debug(message):
-    if loging:
+    if log:
         info_log.debug(message)
     else:
         print message
 
 
 def warning(message):
-    if loging:
+    if log:
         info_log.warning(message)
     else:
         print message
 
 
 def error(message):
-    if loging:
+    if log:
         error_log.error(message)
     else:
         print message
