@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-# TODO: сделать методы from_tuple и from_list
+# TODO: -
 
 
 class Point():
