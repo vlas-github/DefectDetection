@@ -9,7 +9,9 @@
 
 
 # TODO: -
-# TODO: сделать методы from_tuple и from_list
+
+
+from src.utils.scope.point import Point
 
 
 class Rectangle():
@@ -34,3 +36,14 @@ class Rectangle():
 
     def to_list(self):
         return [self._lt.to_list(), self._rb.to_list()]
+
+    @staticmethod
+    def from_tuple(t):
+        return Rectangle(Point.from_tuple(t[0]), Point.from_tuple(t[1]))
+
+    @staticmethod
+    def from_list(l):
+        if len(l) == 2:
+            return Rectangle(Point.from_tuple(l[0]), Point.from_tuple(l[1]))
+        elif len(l) == 4:
+            return Rectangle(Point.from_tuple(l[0:2]), Point.from_tuple(l[3, 4]))

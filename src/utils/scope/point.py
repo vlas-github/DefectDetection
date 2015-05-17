@@ -27,3 +27,11 @@ class Point():
 
     def to_list(self):
         return [self._x, self._y]
+
+    @staticmethod
+    def from_tuple(t):
+        return Point(t[0], t[1])
+
+    @staticmethod
+    def from_list(t):
+        return Point(t[0], t[1])
