@@ -14,6 +14,9 @@ import sympy
 from src.utils.other.functions import degrees_to_radians
 
 
+white_color = 255
+
+
 def get_perpendicular(scope):
     """
     Определение перпендикуляра к шву
@@ -51,7 +54,7 @@ def get_points_on_circle(img, center, radius):
         x = int(math.sin(radians) * radius + center.get_x())
         y = int(math.cos(radians) * radius + center.get_y())
         if old_point_color != img[y][x]:
-            if old_point_color == 255:
+            if old_point_color == white_color:
                 points.append(((old_point[0] + x) / 2, (old_point[1] + y) / 2))
             old_point_color = img[y][x]
             old_point = (x, y)

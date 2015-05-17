@@ -5,10 +5,13 @@
     Выделение области вокруг точки сканирования
 """
 
-# TODO: Убрать магические числа
+# TODO: -
 
 
 import src.utils.other.functions as f
+
+
+inc_range_on = 1.5
 
 
 def get_area(scope):
@@ -17,7 +20,7 @@ def get_area(scope):
     scale = scope.get_scale()
     width = scope.get_allowed_width()
 
-    radius = scale * width * 1.5
+    radius = scale * width * inc_range_on
     diameter = 2 * radius
 
     in_circle = lambda p: f.in_circle(radius, p)

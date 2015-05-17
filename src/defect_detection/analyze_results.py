@@ -10,3 +10,11 @@
 
 def analyze(check_position_result, check_width_result):
     pass
+
+
+def average_position():
+    pass
+
+
+def average_width():
+    pass

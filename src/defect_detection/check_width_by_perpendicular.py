@@ -11,6 +11,9 @@
 import math
 
 
+white_color = 255
+
+
 def check(scope, perpendicular):
     work_image = scope.get_work_image()
     point = scope.get_point()
@@ -22,9 +25,9 @@ def check(scope, perpendicular):
         x = point.get_x() + width * i / 200.0
         y = perpendicular(x)
         color = work_image[int(y)][int(x)]
-        if color == 255 and old_color != 255:
+        if color == white_color and old_color != white_color:
             point_1 = (x, y)
-        if color != 255 and old_color == 255:
+        if color != white_color and old_color == white_color:
             point_2 = (x, y)
         old_color = color
 

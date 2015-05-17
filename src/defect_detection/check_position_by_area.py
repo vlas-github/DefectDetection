@@ -12,6 +12,9 @@
 from src.utils.other.functions import vector_value_and_direction_coordinates
 
 
+white_color = 255
+
+
 def check(scope, area):
     area_height = len(area)
     area_width = len(area[0])
@@ -23,7 +26,7 @@ def check(scope, area):
 
     for x in xrange(0, area_height):
         for y in xrange(0, area_width):
-            if area[x][y] != -1 and area[x][y] != 255:
+            if area[x][y] != -1 and area[x][y] != white_color:
                 if x < height_mid and y < width_mid:
                     tl += 1
                 elif x > height_mid and y < width_mid:

@@ -62,7 +62,19 @@ def main_console(args):
         check_position_result = check_position_by_area.check(scope, a)
         check_width_result = check_width_by_area.check(scope, a)
     elif args.type == 0:
-        pass
+        perpendicular = interpolate.get_perpendicular(scope)
+        a = area.get_area(scope)
+
+        check_position_result_p = check_position_by_perpendicular.check(scope, perpendicular)
+        check_width_result_p = check_width_by_perpendicular.check(scope, perpendicular)
+
+        check_position_result_a = check_position_by_area.check(scope, a)
+        check_width_result_a = check_width_by_area.check(scope, a)
+
+        check_position_result = check_position_by_area.average_position(check_position_result_p,
+                                                                        check_position_result_a)
+        check_width_result = check_width_by_area.average_width(check_width_result_p,
+                                                               check_width_result_a)
 
     # Анализ полученных результатов
     return analyze_results.analyze(check_position_result, check_width_result)

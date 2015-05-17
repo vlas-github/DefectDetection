@@ -5,7 +5,10 @@
     Проверка ширины шва
 """
 
-# TODO: - Убрать магические числа)
+# TODO: -
+
+
+white_color = 255
 
 
 def check(scope, area):
@@ -19,7 +22,7 @@ def check(scope, area):
     for x in xrange(0, area_height):
         for y in xrange(0, area_width):
             if area[x][y] != -1:
-                if area[x][y] == 255:
+                if area[x][y] == white_color:
                     white_pixel += 1
                 else:
                     other_pixel += 1
@@ -29,15 +32,15 @@ def check(scope, area):
 
     white_top = white_bottom = white_left = white_right = False
     for y in xrange(0, area_width):
-        if area[area_height - 1][y] == 255:
+        if area[area_height - 1][y] == white_color:
             white_bottom = True
-        if area[0][y] == 255:
+        if area[0][y] == white_color:
             white_top = True
 
     for x in xrange(0, area_height):
-        if area[x][area_width - 1] == 255:
+        if area[x][area_width - 1] == white_color:
             white_right = True
-        if area[x][0] == 255:
+        if area[x][0] == white_color:
             white_left = True
 
     result = (not white_bottom and not white_top) or (not white_left and not white_right)
