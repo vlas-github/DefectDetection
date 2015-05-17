@@ -23,7 +23,7 @@ MID = 12
 MANY = 13
 
 # Направление
-# T -top
+# T - top
 # B - bottom
 # L - left
 # R - right
