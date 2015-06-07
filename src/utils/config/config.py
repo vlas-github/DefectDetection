@@ -65,7 +65,7 @@ def load_config(fn):
                             get_property('work', 'size').replace('[', '').replace(']', '').split(', '))
         if args.type is None:
             args.type = int(get_property('work', 'type'))
-        fn(args)
+        return fn(args)
 
     return wrapped
 

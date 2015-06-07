@@ -17,7 +17,6 @@ white_color = 255
 def check(scope, perpendicular):
     work_image = scope.get_work_image()
     point = scope.get_point()
-    scale = scope.get_scale()
     width = scope.get_allowed_width()
 
     old_color = 0
@@ -31,9 +30,4 @@ def check(scope, perpendicular):
             point_2 = (x, y)
         old_color = color
 
-    real_width = math.sqrt(math.pow(point_1[0] - point_2[0], 2) + math.pow(point_1[1] - point_2[1], 2))
-
-    if real_width > scale * width:
-        return False
-    else:
-        return True
+    return math.sqrt(math.pow(point_1[0] - point_2[0], 2) + math.pow(point_1[1] - point_2[1], 2))

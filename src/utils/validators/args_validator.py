@@ -21,14 +21,19 @@ def args_validator(fn):
     def wrapped(args):
         if os.path.exists(args.image):
             log.error('image not found')
+            raise ValueError('image not found')
         elif len(args.area) != 4:
             log.error('area format is incorrect')
+            raise ValueError('area format is incorrect')
         elif len(args.point) != 2:
             log.error('point format is incorrect')
+            raise ValueError('point format is incorrect')
         elif len(args.size) != 2:
             log.error('size format is incorrect')
+            raise ValueError('size format is incorrect')
         elif args.type != 0 and args.type != 1 and args.type != 2:
             log.error('invalid type')
+            raise ValueError('invalid type')
         else:
-            fn(args)
+            return fn(args)
     return wrapped

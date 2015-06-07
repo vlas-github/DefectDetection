@@ -14,14 +14,16 @@ import src.utils.scope.scope as s
 import src.edge_detection.canny as canny
 import src.defect_detection.check_position_by_perpendicular as check_position_by_perpendicular
 import src.defect_detection.check_width_by_perpendicular as check_width_by_perpendicular
-import src.defect_detection.check_position_by_perpendicular as check_position_by_area
-import src.defect_detection.check_width_by_perpendicular as check_width_by_area
+import src.defect_detection.check_position_by_area as check_position_by_area
+import src.defect_detection.check_width_by_area as check_width_by_area
 import src.defect_detection.analyze_results as analyze_results
 from src.utils.validators.args_validator import args_validator
 from src.utils.config.config import load_config
 from src.utils.config.config import full_path
 from src.preparation import interpolate
 from src.preparation import area
+
+import cv2
 
 # Добавление модулей приложения в sys.path
 sys.path.append(full_path(''))
@@ -55,29 +57,18 @@ def main_console(args):
     if args.type == 1:
         perpendicular = interpolate.get_perpendicular(scope)
 
-        check_position_result = check_position_by_perpendicular.check(scope, perpendicular)
-        check_width_result = check_width_by_perpendicular.check(scope, perpendicular)
+        position_result = check_position_by_perpendicular.check(scope, perpendicular)
+        width_result = check_width_by_perpendicular.check(scope, perpendicular)
+
+        return analyze_results.analyze_position_by_perpendicular(scope, position_result) + analyze_results.analyze_width_by_perpendicular(scope, width_result)
+
     elif args.type == 2:
         a = area.get_area(scope)
-        check_position_result = check_position_by_area.check(scope, a)
-        check_width_result = check_width_by_area.check(scope, a)
-    elif args.type == 0:
-        perpendicular = interpolate.get_perpendicular(scope)
-        a = area.get_area(scope)
 
-        check_position_result_p = check_position_by_perpendicular.check(scope, perpendicular)
-        check_width_result_p = check_width_by_perpendicular.check(scope, perpendicular)
+        position_result = check_position_by_area.check(scope, a)
+        width_result = check_width_by_area.check(scope, a)
 
-        check_position_result_a = check_position_by_area.check(scope, a)
-        check_width_result_a = check_width_by_area.check(scope, a)
-
-        check_position_result = check_position_by_area.average_position(check_position_result_p,
-                                                                        check_position_result_a)
-        check_width_result = check_width_by_area.average_width(check_width_result_p,
-                                                               check_width_result_a)
-
-    # Анализ полученных результатов
-    return analyze_results.analyze(check_position_result, check_width_result)
+        return analyze_results.analyze_position_by_area(scope, position_result) + analyze_results.analyze_width_by_area(scope, width_result)
 
 
 if __name__ == '__main__':
@@ -88,4 +79,4 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--size',  help='image size in mm (-i h w)',   nargs='+', type=float)
     parser.add_argument('-t', '--type',  help='1 - perpendicular; 2 - area; 0 - both',  type=int)
     _args = parser.parse_args()
-    main_console(_args)
+    print main_console(_args)
