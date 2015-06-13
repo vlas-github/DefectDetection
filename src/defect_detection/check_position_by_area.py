@@ -41,7 +41,10 @@ def check(scope, area):
     v3 = vector_value_and_direction_coordinates(bl, -135)
     v4 = vector_value_and_direction_coordinates(br, -45)
 
-    return reduce(lambda (res_x, res_y), (_x, _y): (res_x + _x, res_y + _y), [v1, v2, v3, v4], (0, 0))
+    max_width = max(tl, tr, bl, br)
+    result = reduce(lambda (res_x, res_y), (_x, _y): (res_x + _x, res_y + _y), [v1, v2, v3, v4], (0, 0))
+
+    return result[0] / max_width, result[1] / max_width
 
 
 if __name__ == '__main__':

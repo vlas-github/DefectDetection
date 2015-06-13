@@ -24,9 +24,9 @@ def analyze_width_by_perpendicular(scope, real_width):
 
 def analyze_width_by_area(scope, result):
     if result:
-        return [1]
-    else:
         return [0]
+    else:
+        return [1]
 
 
 def analyze_position_by_perpendicular(scope, result):
@@ -50,7 +50,14 @@ def analyze_position_by_perpendicular(scope, result):
 
 
 def analyze_position_by_area(scope, result):
-    results = [result_codes.MID, get_direction(result)]
+    results = [get_direction(result)]
+    distance = math.sqrt(result[0] ** 2 + result[1] ** 2)
+    if distance < 0.2:
+        results.append(result_codes.LITTLE)
+    elif distance < 0.5:
+        results.append(result_codes.MID)
+    elif distance < 0.8:
+        results.append(result_codes.MANY)
     return results
 
 

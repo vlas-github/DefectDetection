@@ -43,7 +43,7 @@ def check(scope, area):
         if area[x][0] == white_color:
             white_left = True
 
-    result = (not white_bottom and not white_top) or (not white_left and not white_right)
+    result = (white_bottom and white_top) or (white_left and white_right)
     return result
 
 
